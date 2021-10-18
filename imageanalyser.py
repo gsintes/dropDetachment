@@ -1,4 +1,4 @@
-"""Anlyse images of a droplet detachment and detect the neck width."""
+"""Analyse images of a droplet detachment and detect the neck width."""
 
 import os
 from typing import List, Tuple
@@ -48,8 +48,8 @@ def binerize(im: np.ndarray) -> np.ndarray:
     return bin_im
 
 
-def neck_detection(im: np.ndarray) -> int:
-    """Detect the neck of the drop and return its width.""" 
+def edge_detection(im: np.ndarray) -> List[int]:
+    """Detect the edge of the drop and return its widths along the vertical.""" 
     bin_im = binerize(im)
     edges = []
     for i in range(im.shape[0]):
@@ -66,8 +66,16 @@ def neck_detection(im: np.ndarray) -> int:
     plt.draw()
     plt.pause(0.001)
     plt.clf()
-    return min(width)
+    return width
 
+def neck_detection(im: np.ndarray) -> int:
+    """Detect the neck and return its width."""
+    widths = edge_detection(im)
+    diff = widths[1:] - widths[0: len(widths) - 1]
+    for i, deriv in enumerate(diff):
+        if deriv > 0:
+            return widths[i]
+    return -1
 
 def limits_line(bin_im: np.ndarray, line: int) -> int:
     """Detect the edges of the drop at the line."""
@@ -90,14 +98,17 @@ def limits_line(bin_im: np.ndarray, line: int) -> int:
     except UnboundLocalError:
         return (0, len(diff) - 1)
 
- 
+def save_data(widths: List[int]) -> None:
+    """Save the data to a text file."""
+    textfile = open(os.path.join(FOLDER,"width.csv"), "w")
+    for i, element in enumerate(widths):
+        textfile.write(f"{i}, {element}\n")
+    textfile.close()
+
+
 if __name__ == "__main__":
     image_list = [os.path.join(FOLDER, f) for f in os.listdir(FOLDER) if f.endswith(".png")]
     limits = select_roi(image_list[-1])
-
-    # test_im = crop_image(mpimg.imread(image_list[-5]), limits)
-    # bin_im = binerize(test_im)
-    # print(neck_detection(test_im))
     neck_widths = []
     plt.ion()
 
@@ -105,6 +116,6 @@ if __name__ == "__main__":
         im = mpimg.imread(im_name)
         im = crop_image(im, limits)
         neck_widths.append(neck_detection(im))
-
-    plt.figure()
-    plt.plot(neck_widths, ".")
+    plt.close()
+    plt.ioff
+    save_data(neck_widths)
