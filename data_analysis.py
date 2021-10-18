@@ -16,5 +16,5 @@ data_file = "width.csv"
 data = np.genfromtxt(os.path.join(FOLDER, data_file), delimiter=",")
 
 plt.figure()
-plt.plot(data[:, 0], data[:, 1], ".k")
+plt.loglog(data[:, 0], data[:, 1], ".k")
 plt.show(block=True)
