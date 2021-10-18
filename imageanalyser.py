@@ -1,13 +1,11 @@
 """Anlyse images of a droplet detachment and detect the neck width."""
 
 import os
-import time
 from typing import List, Tuple
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-from numpy.core.shape_base import block
 from skimage.filters.thresholding import threshold_otsu
 
 ###### TO BE FILLED #######
@@ -29,7 +27,7 @@ def select_roi(im_name: str) -> List[Tuple[int, int]]:
     plt.ion()
     plt.imshow(crop_image(im, coords), cmap="gray")
     plt.draw()
-    plt.pause(2)
+    plt.pause(0.5)
     plt.close()
     return coords
 
@@ -66,7 +64,8 @@ def neck_detection(im: np.ndarray) -> int:
     plt.imshow(bin_im, cmap="gray")
     plt.plot(coord_edges[:, 1], coord_edges[:, 0], "*r")
     plt.draw()
-    plt.pause(1)
+    plt.pause(0.001)
+    plt.clf()
     return min(width)
 
 
@@ -101,7 +100,7 @@ if __name__ == "__main__":
     # print(neck_detection(test_im))
     neck_widths = []
     plt.ion()
-    plt.show()
+
     for im_name in image_list:
         im = mpimg.imread(im_name)
         im = crop_image(im, limits)
