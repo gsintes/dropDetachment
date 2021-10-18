@@ -106,3 +106,5 @@ if __name__ == "__main__":
         im = crop_image(im, limits)
         neck_widths.append(neck_detection(im))
 
+    plt.figure()
+    plt.plot(neck_widths, ".")
