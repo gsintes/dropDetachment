@@ -18,8 +18,11 @@ data = np.genfromtxt(os.path.join(FOLDER, data_file), delimiter=",")
 t_step = data[:, 0]
 width_pixel = data[:, 1] 
 
+### Convert in s and mm
+t_sec = t_step       # COMPLETE
+width_mm = width_pixel
+
 
 
 plt.figure()
-plt.loglog(max(t_step) - t_step, width_pixel, ".k")
 plt.show(block=True)
