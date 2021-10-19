@@ -9,8 +9,8 @@ import numpy as np
 from skimage.filters.thresholding import threshold_otsu
 
 ###### TO BE FILLED #######
-FOLDER = "/Volumes/GUILLAUME/TP rheologie/uflu 1/water_C001H001S0001"
-# FOLDER = "/Volumes/GUILLAUME/TP rheologie/uflu 1/peo2_C001H001S0001"
+# FOLDER = "/Volumes/GUILLAUME/TP rheologie/uflu 1/water_C001H001S0001"
+FOLDER = "/Volumes/GUILLAUME/TP rheologie/uflu 1/peo2_C001H001S0001"
 ###### TO BE FILLED #######
 
 def select_roi(im_name: str) -> List[Tuple[int, int]]:
