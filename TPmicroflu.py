@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 H = 100 # in um
 W = 110 # in um
 
-# a = H / W
-a = 0.00001
+a = H / W
+# a = 0.00001
 nb_it = 100
 precision = 0.001
 
