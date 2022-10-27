@@ -5,7 +5,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-H = 100 # in um
+H = 80 # in um
 W = 110 # in um
 
 a = H / W
