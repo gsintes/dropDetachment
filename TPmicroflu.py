@@ -28,7 +28,7 @@ def calc_B(nb_it: int) -> float:
     """Calculate the B coefficient"""
     serie = 0
     for n in range(1, nb_it + 1):
-        serie += (48 / ((np.pi * n) ** 5) * (1 - (-1) ** n) * (1 - 1 / np.cosh(n * np.pi / (2 * a))) / np.tanh(n * np.pi / (2 * a)))
+        serie += (48 / ((np.pi * n) ** 5) * (1 - (-1) ** n) * (1 - 1 / np.cosh(n * np.pi / (2 * a))) ** 2 / np.tanh(n * np.pi / (2 * a)))
     serie = a * serie
     return serie
 
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     print("A: ", A)
     print("B: ", B)
 
-    print(inverse_ratio_flow(A, B, 0.17, 0, 20))
+    print(inverse_ratio_flow(A, B, 0.70, 0, 20))
     x = np.linspace(1, 10)
     ratio = ratio_flow(A, B, x)
 
