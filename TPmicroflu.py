@@ -4,13 +4,12 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from numpy.core.shape_base import block
 
 H = 100 # in um
 W = 110 # in um
 
-a = H / W
-# a = 0.00001
+# a = H / W
+a = 0.00001
 nb_it = 100
 precision = 0.001
 
@@ -41,7 +40,11 @@ def ratio_flow(A, B, x):
 
 
 def inverse_ratio_flow(A, B, ratio, lim1, lim2):
-    """Take the ratio of flow rate and return the ratio of viscosity"""
+    """
+    Take the ratio of flow rate and return the ratio of viscosity.
+    
+    It solves the inverse problem by dichotomy.
+    """
     
     mid = (lim1 + lim2) / 2
     r = ratio_flow(A, B, mid)
